@@ -1,4 +1,5 @@
 """ Group Lab 2 (in-class) """
+import random
 
 
 def permutation(word: str):
@@ -12,8 +13,16 @@ def permutation(word: str):
     :param word: word to permute
     :return: display permutations of a given word
     """
-
-    pass
+    if len(word) == 2:
+        x = [word, (word[1] + word[0])]
+        return x
+    else:
+        list_words = []
+        for i in range(0, len(word)):
+            y = permutation(word[0:i] + word[i + 1: len(word)])
+            for j in y:
+                list_words.append(word[i] + j)
+        return list_words
 
 
 def sum_of_dice_recur(dices, desired_sum, combination, solution: set):
@@ -46,6 +55,3 @@ def sum_of_dice(dice: int, desired_sum: int):
     solution = set([])
     sum_of_dice_recur(dice, desired_sum, (), solution)
     print(solution)
-
-
-sum_of_dice(2, 6)
