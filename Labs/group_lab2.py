@@ -2,6 +2,15 @@
 import random
 
 
+def permutation_helper(word, sofar):
+    if len(word) == 0:
+        print(sofar)
+    else:
+        for index in range(len(word)):
+            permutation_helper(word[:index] + word[index + 1:], sofar + word[index])
+    pass
+
+
 def permutation(word: str):
     """
     Write a recursive function permutation that accepts a string as a parameter
@@ -13,16 +22,17 @@ def permutation(word: str):
     :param word: word to permute
     :return: display permutations of a given word
     """
-    if len(word) == 2:
-        x = [word, (word[1] + word[0])]
-        return x
-    else:
-        list_words = []
-        for i in range(0, len(word)):
-            y = permutation(word[0:i] + word[i + 1: len(word)])
-            for j in y:
-                list_words.append(word[i] + j)
-        return list_words
+    permutation_helper(word, "")
+    # if len(word) == 2:
+    #     x = [word, (word[1] + word[0])]
+    #     return x
+    # else:
+    #     list_words = []
+    #     for i in range(0, len(word)):
+    #         y = permutation(word[0:i] + word[i + 1: len(word)])
+    #         for j in y:
+    #             list_words.append(word[i] + j)
+    #     return list_words
 
 
 def sum_of_dice_recur(dices, desired_sum, combination, solution: set):
@@ -39,17 +49,17 @@ def sum_of_dice_recur(dices, desired_sum, combination, solution: set):
             sum_of_dice_recur(dices - 1, rest, new_combination, solution)
 
 
-def sum_of_dice_recur2(dices, desired_sum, combination, solution: set):
+def sum_of_dice_recur2(dices, desired_sum, combination):
     if (dices * 6) < desired_sum or desired_sum < dices:
         return
     if dices == 1:
         new_combination = combination + (desired_sum,)
-        solution.add(new_combination)
+        print(new_combination)
         return
     for num in range(1, 7):
         rest = desired_sum - num
         new_combination = combination + (num,)
-        sum_of_dice_recur(dices - 1, rest, new_combination, solution)
+        sum_of_dice_recur2(dices - 1, rest, new_combination)
 
 
 def sum_of_dice(dice: int, desired_sum: int):
@@ -64,6 +74,7 @@ def sum_of_dice(dice: int, desired_sum: int):
     sum_of_dice(2, 7)
     output: {1, 6}, {2, 5}, {3, 4}, {4, 3}, {5, 2}, {6, 1}
     """
-    solution = set([])
-    sum_of_dice_recur2(dice, desired_sum, (), solution)
-    print(solution)
+    # solution = set([])
+    # sum_of_dice_recur(dice, desired_sum, (), solution)
+    # print(solution)
+    sum_of_dice_recur2(dice, desired_sum, ())
