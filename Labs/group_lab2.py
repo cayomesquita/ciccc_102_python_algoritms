@@ -39,6 +39,19 @@ def sum_of_dice_recur(dices, desired_sum, combination, solution: set):
             sum_of_dice_recur(dices - 1, rest, new_combination, solution)
 
 
+def sum_of_dice_recur2(dices, desired_sum, combination, solution: set):
+    if (dices * 6) < desired_sum or desired_sum < dices:
+        return
+    if dices == 1:
+        new_combination = combination + (desired_sum,)
+        solution.add(new_combination)
+        return
+    for num in range(1, 7):
+        rest = desired_sum - num
+        new_combination = combination + (num,)
+        sum_of_dice_recur(dices - 1, rest, new_combination, solution)
+
+
 def sum_of_dice(dice: int, desired_sum: int):
     """
     Prints all possible outcomes of rolling the given number of six-sided dice
@@ -52,5 +65,5 @@ def sum_of_dice(dice: int, desired_sum: int):
     output: {1, 6}, {2, 5}, {3, 4}, {4, 3}, {5, 2}, {6, 1}
     """
     solution = set([])
-    sum_of_dice_recur(dice, desired_sum, (), solution)
+    sum_of_dice_recur2(dice, desired_sum, (), solution)
     print(solution)
