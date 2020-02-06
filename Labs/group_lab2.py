@@ -31,7 +31,6 @@ def sum_of_dice_recur(dices, desired_sum, combination, solution: set):
     if dices == 1:
         new_combination = combination + (desired_sum,)
         solution.add(new_combination)
-        print(new_combination)
         return
     for _ in range(dices):
         for num in range(1, 7):
